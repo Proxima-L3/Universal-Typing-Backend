@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 *.egg-info/
 /staticfiles/
+/project_plans_scrum_files/

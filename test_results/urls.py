@@ -1,5 +1,5 @@
 """
-URL configuration for typing_site_backend project.
+URL configuration for authentication django app.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -14,12 +14,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
+# from django.contrib import admin
+from django.urls import path
+from . import views
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('authentication_app/', include('authentication.urls')),
-    path('leaderboards_app', include('leaderboards.urls')),
-    path('test_results/', include('test_results.urls')),
+    path('test_results/', views.TestResults.as_view(), name='test_results?'),
+    # path('test_results/', views.TestResults.as_view(), name='test_results?'),
 ]
