@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # third party apps
+    'rest_framework',
+    'corsheaders',
+    # local apps
     'authentication',
     'leaderboards',
     'test_results',
@@ -53,9 +57,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'typing_site_backend.urls'
+
+# White listing the localhost:3000 port for React vite
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:5173',
+)
 
 TEMPLATES = [
     {

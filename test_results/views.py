@@ -1,10 +1,22 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
+from rest_framework import viewsets
+from .serializers import TestResultsSerializer
+from .models import TestResults
 
 # note: views are functions or class object methods that take in http requests as parameters and return http responses
 
-# Create your views here.
+
+
+# 
+class TestResultsView(viewsets.ModelViewSet):
+
+    # assigning test results serializer class to serializer_class
+    serializer_class = TestResultsSerializer
+
+    # variable populated with all test results entries
+    queryset = TestResults.objects.all()
 
 
 # Handles public leaderboard get/put/push/post requests

@@ -16,10 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+from test_results.views import TestResultsView
+
+
+router = routers.DefaultRouter()
+router.register(r'test_results_entries', TestResultsView, basename='test_results_entries')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('authentication_app/', include('authentication.urls')),
     path('leaderboards_app', include('leaderboards.urls')),
-    path('test_results/', include('test_results.urls')),
+    # path('test_results/', include('test_results.urls')),
+    path('api/', include(router.urls)),
 ]
