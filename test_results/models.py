@@ -23,6 +23,8 @@ class TestResults(models.Model):
     test_typing_speed_cpm = models.IntegerField(null=True, blank=True)
     test_typing_speed_wpm = models.IntegerField(null=False, blank=False)
     test_typing_accuracy = models.FloatField(null=False, blank=False)
+    test_overall_score = models.IntegerField(null=True, blank=True)
+
     test_words_completed = models.IntegerField(null=False, blank=False)
     test_time_completed_in = models.IntegerField(null=False, blank=False)
     

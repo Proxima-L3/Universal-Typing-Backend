@@ -20,6 +20,7 @@ class TestResultsSerializer(serializers.ModelSerializer):
                   "test_typing_speed_cpm",
                   "test_typing_speed_wpm",
                   "test_typing_accuracy",
+                  "test_overall_score",
                   "test_words_completed",
                   "test_time_completed_in",
                   "basic_test_option",
