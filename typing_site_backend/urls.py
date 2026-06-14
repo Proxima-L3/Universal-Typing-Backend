@@ -17,13 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from test_results.views import TestResultsView
+from test_results.views import TestResultsViewSet
 
 
 # gives browseable API root page at /api/
 router = routers.DefaultRouter()
 # tells the router to create all CRUD (Create ie post requests, Read ie get requests, Update ie put and patch requests, and Destroy ie delete requests) urls for TestResultsView under the path /api/test_results_entries/
-router.register(r'test_results_entries', TestResultsView, basename='test_results_entries')
+router.register(r'test_results_entries', TestResultsViewSet, basename='test_results_entries')
 
 
 urlpatterns = [

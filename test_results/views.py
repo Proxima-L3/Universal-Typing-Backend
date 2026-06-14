@@ -10,12 +10,12 @@ from .models import TestResults
 
 
 # 
-class TestResultsView(viewsets.ModelViewSet):
+class TestResultsViewSet(viewsets.ModelViewSet):
 
-    # assigning test results serializer class to serializer_class
-    serializer_class = TestResultsSerializer
+    # assigning test results translation process (between JSON and django model instances) to serializer class TestResultsSerializer
+    serializer_instance = TestResultsSerializer
 
-    # variable populated with all test results entries
+    # variable populated with ALL test results entry rows of sql table
     queryset = TestResults.objects.all()
 
 
