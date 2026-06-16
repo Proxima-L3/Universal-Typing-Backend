@@ -43,9 +43,12 @@ class TestResultsViewSet(viewsets.ModelViewSet):
                 order_by=F('test_overall_score').desc()
             )
         )
-        # grab the user's row and their rank value of their entry row
-        user_rank = ranked_results.filter(id=entry_id).values('rank')[0].get('rank')
-        # grab length of user_results ONCE using len() will trigger a SELECT COUNT(*) sql query every time which is inefficient
+        # grab the user's row and their rank value of their entry row if it exists
+        user_entry = ranked_results.filter(id=entry_id).values('rank').first()
+        if user_entry is None:
+            return Response({'error': 'Entry not found in this leaderboard'}, status=404)
+        user_rank = user_entry['rank']
+        # grab length of user_results ONCE with .count() ...using len() will trigger a SELECT COUNT(*) sql query every time which is inefficient
         ranked_results_length = ranked_results.count()
         # declare serializer to be used to return response data
         leaderboard_serializer_class = TestResultsLeaderboardSerializer
