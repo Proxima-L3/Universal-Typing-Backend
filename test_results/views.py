@@ -44,7 +44,6 @@ class TestResultsViewSet(viewsets.ModelViewSet):
             )
         )
         # grab the user's row and their rank value of their entry row
-        # user_row = ranked_results.filter(id=entry_id)
         user_rank = ranked_results.filter(id=entry_id).values('rank')[0].get('rank')
         # grab length of user_results ONCE using len() will trigger a SELECT COUNT(*) sql query every time which is inefficient
         ranked_results_length = ranked_results.count()
@@ -54,29 +53,23 @@ class TestResultsViewSet(viewsets.ModelViewSet):
         # if total entries is at least 51
         if ranked_results_length >= 51:
             # if user's rank is not in top 25 and not in bottom 25
-            # if user_rank > 25 and user_rank not in ranked_results.values('rank')[-1:-26:-1].get('rank'):
             if user_rank > 25 and user_rank <= ranked_results_length - 25:
                 # then grab the 25 rows above user rank and the 25 below and concatenate them into one list of object rows then return that list
-                # above_25rows = ranked_results[(ranked_results[user_rank - 26]):(ranked_results.index(user_row)):1]
-                # above_25rows = ranked_results[(user_rank - 26):(ranked_results.index(user_row)):1]
-                # below_25rows = ranked_results[(ranked_results.index(user_row) + 1):(user_rank + 25):1]
-
-                # test_results_leaderboard_51rows = above_25rows + user_row + below_25rows
-                # test_results_leaderboard_51rows = above_25rows | user_row | below_25rows
                 test_results_leaderboard_51rows = ranked_results[(user_rank - 26):(user_rank + 25):1]
 
                 # serialize the data before returning response
                 serializer_instance = leaderboard_serializer_class(test_results_leaderboard_51rows, many=True)
                 return Response(serializer_instance.data)
+            
             # else if user's rank is in the bottom 25
             elif user_rank > ranked_results_length - 25:
                 # then grab the bottom 51 rows and return that list
-                # bottom_51rows = ranked_results[-1:-52:-1]
                 bottom_51rows = ranked_results[(ranked_results_length - 51):ranked_results_length:1]
                 
                 # serialize the data before returning response
                 serializer_instance = leaderboard_serializer_class(bottom_51rows, many=True)
                 return Response(serializer_instance.data)
+            
             # else if user's rank is in the top 25
             elif user_rank <= 25:
                 # then grab the top 51 rows and return that list
@@ -85,16 +78,16 @@ class TestResultsViewSet(viewsets.ModelViewSet):
                 # serialize the data before returning response
                 serializer_instance = leaderboard_serializer_class(top_51rows, many=True)
                 return Response(serializer_instance.data)
+            
             else:
                 return Response({'error': 'Unexpected error: paradox found'}, status=400)
-                # print('Unexpected Error: user_rank not found?')
+            
         # else total entries is less than 51 currently so return all that is present
         else:
             # serialize the data before returning response
             serializer_instance = leaderboard_serializer_class(ranked_results, many=True)
             return Response(serializer_instance.data)
 
-        # return 51 row window as a list of object rows with only id, rank, username_tag, test_overall_score, accuracy, wpm, cpm, kps, and kph (serializer will convert to json for me i think?)
 
 
 # Handles public leaderboard get/put/push/post requests
