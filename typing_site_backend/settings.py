@@ -121,6 +121,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+#  This lets anyone make requests without authentication. That's fine for local development and for a public leaderboard. Later when you add user accounts, you'd change this to require authentication for certain endpoints.
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
