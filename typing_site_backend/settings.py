@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'authentication',
     'leaderboards',
     'test_results',
+    'text_generator',
 ]
 
 MIDDLEWARE = [

@@ -32,4 +32,5 @@ urlpatterns = [
     path('leaderboards_app', include('leaderboards.urls')),
     # path('test_results/', include('test_results.urls')),
     path('api/', include(router.urls)),
+    path('api/text_generator/', include('text_generator.urls'))
 ]
