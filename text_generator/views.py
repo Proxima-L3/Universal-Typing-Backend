@@ -10,10 +10,13 @@ from rest_framework.response import Response
 class TextGeneratorAPIView(APIView):
 
     def post(self, request):
-        # the url of the external backend api of text generator
-        text_gen_url = 'http://localhost:5000/api/generate'
+        try:
+            # the url of the external backend api of text generator
+            text_gen_url = 'http://localhost:5000/api/generate'
 
-        # post request to text generator backend
-        response = requests.post(text_gen_url, json=request.data)
+            # post request to text generator backend
+            response = requests.post(text_gen_url, json=request.data)
 
-        return Response(response.json(), status=response.status_code)
+            return Response(response.json(), status=response.status_code)
+        except requests.exceptions.RequestException as err:
+            return Response({'error': 'Text generator service unavailable'}, status=503)
