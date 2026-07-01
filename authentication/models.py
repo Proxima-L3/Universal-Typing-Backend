@@ -4,6 +4,7 @@ from django.db import models
 
 class UserAuthInfo(models.Model):
 
+    # below is temp placeholder until actual user authentication stuff is worked on
     user_username = models.CharField(max_length=25)
     user_email = models.EmailField(max_length=50)
     user_password = models.CharField(max_length=50)
