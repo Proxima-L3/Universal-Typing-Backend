@@ -20,5 +20,5 @@ from . import views
 
 
 urlpatterns = [
-    path('generate/', views.TextGeneratorAPIView.as_view(), name='text_generator?'),
+    path('generate/', views.TextGeneratorAPIView.as_view(), name='generate'),
 ]

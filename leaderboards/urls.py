@@ -20,6 +20,6 @@ from . import views
 
 
 urlpatterns = [
-    path('public_leaderboards/', views.PublicLeaderboards.as_view(), name='public_leaderboards?'),
-    path('private_leaderboard/', views.PrivateLeaderboard.as_view(), name='private_leaderboard?'),
+    path('public_leaderboards/', views.PublicLeaderboards.as_view(), name='public_leaderboards'),
+    path('private_leaderboard/', views.PrivateLeaderboard.as_view(), name='private_leaderboard'),
 ]

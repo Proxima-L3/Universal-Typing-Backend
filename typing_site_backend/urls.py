@@ -29,7 +29,7 @@ router.register(r'test_results_entries', TestResultsViewSet, basename='test_resu
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('authentication_app/', include('authentication.urls')),
-    path('leaderboards_app', include('leaderboards.urls')),
+    path('leaderboards_app/', include('leaderboards.urls')),
     # path('test_results/', include('test_results.urls')),
     path('api/', include(router.urls)),
     path('api/text_generator/', include('text_generator.urls'))

@@ -21,5 +21,5 @@ from . import views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('login_authentication/', views.LoginAuthentication.as_view(), name='login_authentication?'),
+    path('login_authentication/', views.LoginAuthentication.as_view(), name='login_authentication'),
 ]
