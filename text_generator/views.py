@@ -1,3 +1,4 @@
+import os
 import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -12,7 +13,7 @@ class TextGeneratorAPIView(APIView):
     def post(self, request):
         try:
             # the url of the external backend api of text generator
-            text_gen_url = 'http://localhost:5000/api/generate'
+            text_gen_url = os.environ.get('TEXT_GEN_URL')
 
             # post request to text generator backend
             response = requests.post(text_gen_url, json=request.data)

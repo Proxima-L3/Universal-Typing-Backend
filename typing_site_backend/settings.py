@@ -26,9 +26,9 @@ dotenv.load_dotenv()
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'false') == 'true'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
 
 # Application definition
@@ -64,9 +64,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'typing_site_backend.urls'
 
 # White listing the localhost:3000 port for React vite
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:5173',
-)
+CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ORIGIN', '').split(',')
 
 TEMPLATES = [
     {
