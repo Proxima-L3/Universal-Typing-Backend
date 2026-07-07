@@ -23,6 +23,9 @@ class TestResultsViewSet(viewsets.ModelViewSet):
     # variable populated with ALL test results entry rows of sql table
     queryset = TestResults.objects.all()
 
+    # this limits allowed crud methods
+    http_method_names = ['get', 'post', 'put', 'patch']
+
     @action(detail=False, methods=['get'])
     def return_test_results_page_leaderboard(self, request):
         # save query params filters to vars
