@@ -47,10 +47,13 @@ class TestResultsViewSet(viewsets.ModelViewSet):
             )
         )
         # grab the user's row and their rank value of their entry row if it exists
-        user_entry = ranked_results.filter(id=entry_id).values('rank').first()
+        # user_entry = ranked_results.filter(id=entry_id).values('rank').first()
+        # grab the user's row and determine their rank by finding how many overall scores are greater than the user's (then add 1 to get rank) ..(this has to be done because when django runs each line of code it compiles it as a single sql query per line)
+        user_entry = ordered_results.filter(id=entry_id).first()
         if user_entry is None:
             return Response({'error': 'Entry not found in this leaderboard'}, status=404)
-        user_rank = user_entry['rank']
+        # user_rank = user_entry['rank']
+        user_rank = ordered_results.filter(test_overall_score__gt=user_entry.test_overall_score).count() + 1
         # grab length of user_results ONCE with .count() ...using len() will trigger a SELECT COUNT(*) sql query every time which is inefficient
         ranked_results_length = ranked_results.count()
         # declare serializer to be used to return response data
@@ -93,20 +96,4 @@ class TestResultsViewSet(viewsets.ModelViewSet):
             # serialize the data before returning response
             serializer_instance = leaderboard_serializer_class(ranked_results, many=True)
             return Response(serializer_instance.data)
-
-
-
-# Handles public leaderboard get/put/push/post requests
-# class PublicLeaderboards(View):
-    
-#     def get(self, request) -> HttpResponse:
-#         return HttpResponse('im in the get method in PublicLeaderboards class in leaderboards django app')
-
-
-# # Handles public leaderboard get/put/push/post requests
-# class PrivateLeaderboard(View):
-
-#     def get(self, request) -> HttpResponse:
-#         return HttpResponse('im in the get method in PrivateLeaderboard class in leaderboards django app')
-
 
